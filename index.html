@@ -16,6 +16,8 @@
       <!-- Vincular el control de formulario con el modelo content -->
       <textarea v-model="content"></textarea>
     </section>
+    <!-- Panel de Previsualización | es importante no escapar el contenido, puesto que necesitamos mostrar el resultado en formato HTML. Se recomienda escapar siempre el contenido del usuario para prevenir ataques de secuencia de comandos XSS. En este caso la lógica de la aplicación nos obliga a llevar la contraria -->
+    <aside class="preview" v-html="notePreview"></aside>
   </div>
 
   <!-- Incluir librerías externas - Vue | Marked (parser y compiler markdown) -->
