@@ -13,13 +13,21 @@
   <div id="notebook">
     <!-- Main pane -->
     <section class="main">
-
+      <!-- Vincular el control de formulario con el modelo content -->
+      <textarea v-model="content"></textarea>
     </section>
   </div>
 
-  <!-- Incluir librería Vue -->
+  <!-- Incluir librerías externas - Vue | Marked (parser y compiler markdown) -->
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.7.0/marked.js"></script>
   <!-- Lógica de la aplicación -->
   <script src="./script.js"></script>
+
+  <script>
+    // Ejemplo de uso la librería marked (analiza y compila contenido markdown a HTML)
+    const miHtml = marked('**Negritas** *Cursivas* [link](http://vuejs.org) #Titular h1')
+    console.log(miHtml)
+  </script>
 </body>
 </html>
