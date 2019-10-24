@@ -19,17 +19,20 @@
       </div>
       <!-- Listado de notas añadidas -->
       <div class="notes">
-        <!-- Repetir este elemento por cada item en el modelo notes (se puede usar of en ligar de in)-->
-        <div class="note" v-for="note in notes">{{note.title}}</div>
+        <!-- Repetir este elemento por cada item en el modelo notes (se puede usar of en ligar de in) - escuchar el evento de click en cada elemento para seleccionar la nota y pasar el objeto de nota como parametro. Además se añade la clase selected si la nota coincide con la nota seleccionada -->
+        <div class="note" v-for="note in notes" @click="selectNote(note)" :class="{selected: note.id === selectedId}">{{note.title}}</div>
       </div>
     </aside>
     <!-- Main pane -->
-    <section class="main">
-      <!-- Vincular el control de formulario con el modelo content -->
-      <textarea v-model="content"></textarea>
-    </section>
-    <!-- Panel de Previsualización | es importante no escapar el contenido, puesto que necesitamos mostrar el resultado en formato HTML. Se recomienda escapar siempre el contenido del usuario para prevenir ataques de secuencia de comandos XSS. En este caso la lógica de la aplicación nos obliga a llevar la contraria -->
-    <aside class="preview" v-html="notePreview"></aside>
+    <!-- No tiene sentido mostrar el editor y el previsualizador si no se ha seleccionado una nota para su visualización -->
+    <template v-if="selectedNote">
+      <section class="main">
+        <!-- Vincular el control de formulario con la propiedad compitada selectedNote, la cual es un objeto que coincide con la nota previamente seleccionada en la vista -->
+        <textarea v-model="selectedNote.content"></textarea>
+      </section>
+      <!-- Panel de Previsualización | es importante no escapar el contenido, puesto que necesitamos mostrar el resultado en formato HTML. Se recomienda escapar siempre el contenido del usuario para prevenir ataques de secuencia de comandos XSS. En este caso la lógica de la aplicación nos obliga a llevar la contraria -->
+      <aside class="preview" v-html="notePreview"></aside>
+    </template>  
   </div>
 
   <!-- Incluir librerías externas - Vue | Marked (parser y compiler markdown) -->
