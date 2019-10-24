@@ -31,9 +31,24 @@ new Vue({
     selectNote(note) {
       // Establecer el id de la nota seleccionada desde la vista
       this.selectedId = note.id
+    },
+    removeNote() {
+      if (this.selectedNote && confirm('¿Desea eliminar la nota seleccionada?')) {
+        // Buscar el indice de la nota seleccionada en el arreglo de notas
+        const index = this.notes.indexOf(this.selectedNote)
+        if (index !== -1) {
+          // Remover la nota del array de notas
+          this.notes.splice(index, 1)
+        }
+      }
+    },
+    favoriteNote() {
+      // Este metodo invierte el valor booleano de la propiedad favorita de una nota (favorita a no favorita y viceversa)
+      this.selectedNote.favorite = !this.selectedNote.favorite
     }
   },
   // Las propiedades computadas son nuevas propiedades que combinan cualquier cantidad de propiedades de nuestro modelo, con la finalidad de hacer cálculos o transformaciones de sus datos en tiempo real.
+  // Recordar que estas propiedades tambien forman parte de nuestro modelo, y son recalculadas en el momento que alguno de sus datos dependientes cambia
   computed: {
     notePreview() {
       // La propiedad computada retorna el contenido parseado de la nota seleccionada en la vista, en caso contrario, retorna vacio
@@ -45,6 +60,18 @@ new Vue({
     selectedNote() {
       // Retornamos la nota cuyo id sea identico al id de la nota seleccionada en la vista, en caso contrario retorno un objeto preconstruido con la data de mi modelo
       return this.notes.find(note => note.id === this.selectedId) // || { content: this.content }
+    },
+    sortedNotes() {
+      // Retorno una copia del arreglo notes debidamente ordenado.
+      // sort muta el arreglo original, lo que ocasiona que se desaten nuestros observadores. Por ello se decide crear una copia del mismo
+      return this.notes.slice()
+        // ordeno de menor a mayor, 
+        // si el resultado de la resta es negativo, a va primero que b, en caso contrario, b va antes de a
+        .sort((a, b) => a.created - b.created)
+        // si a y b son favoritos no imparta el orden (0)
+        // si a es favorito, entonces a va primero (-1)
+        // si b es favorito, entonces a va despues de b (1) 
+        .sort((a, b) => (a.favorite === b.favorite) ? 0 : a.favorite ? -1 : 1)
     }
   },
   // Los observadores ejecutan una funcion asociada a una propiedad cuando esta última cambia su valor. Es posible pasar un objeto para establecer opciones de ejecución y monitoreo de profundidad en los datos a observar, sin embargo, la mayoría del tiempo no hace falta especificar opciones adicionales.
