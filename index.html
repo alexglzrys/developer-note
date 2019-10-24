@@ -30,6 +30,9 @@
     // Ejemplo de uso la librería marked (analiza y compila contenido markdown a HTML)
     const miHtml = marked('**Negritas** *Cursivas* [link](http://vuejs.org) #Titular h1')
     console.log(miHtml)
+
+    // Recuperar el contenido almacenado en localStorage
+    console.log('Cargar contenido previamente guardado', localStorage.getItem('content'))
   </script>
 </body>
 </html>
