@@ -3,9 +3,7 @@ new Vue({
   data() {
     return {
       content: 'Escribe tu nota en **markdown**',
-
-      // inicializar el contenido directamente también es posible. Este mecanismo hace que no sea necesario el hook created y por consecuencia no se llame a nuestro observador en content, puesto que no estamos cambiando la data por una nueva...
-      // content: localStorage.getItem('content') || 'Escribe **markdown** ahora'
+      notes: [],
     }
   },
   // Los métodos son funciones reutilizables dentro de nuestra aplicación de Vuejs. Los cuales pueden ser invocados por medio de acciones en la vista de nuestra aplicación, por otros métodos, u observadores.
@@ -18,6 +16,19 @@ new Vue({
     },
     reportOperation(name) {
       console.log('La operación', name, 'se completó exitosamente')
+    },
+    addNote() {
+      // Agregar una nota con contenido predeterminado
+      const time = Date.now()
+      const note = {
+        id: String(time),
+        title: 'Nueva nota',
+        content: '**Hola!** Esta es una nota usando [markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) para formatear',
+        created: time,
+        favorite: false
+      }
+      // Añadir la nueva nota a la lista de notas
+      this.notes.push(note)
     }
   },
   // Las propiedades computadas son nuevas propiedades que combinan cualquier cantidad de propiedades de nuestro modelo, con la finalidad de hacer cálculos o transformaciones de sus datos en tiempo real.
@@ -25,6 +36,9 @@ new Vue({
     notePreview() {
       // La propiedad computada retorna el contenido del modelo content (Markdown) parseado a HTML
       return marked(this.content)
+    },
+    addButtonTitle() {
+      return this.notes.length ? this.notes.length + ' notas añadidas' : '0 notas añadidas'
     }
   },
   // Los observadores ejecutan una funcion asociada a una propiedad cuando esta última cambia su valor. Es posible pasar un objeto para establecer opciones de ejecución y monitoreo de profundidad en los datos a observar, sin embargo, la mayoría del tiempo no hace falta especificar opciones adicionales.

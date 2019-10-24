@@ -11,6 +11,13 @@
 <body>
   <!-- Notebook app -->
   <div id="notebook">
+    <!-- Sidebar listado notas -->
+    <aside class="side-bar">
+      <!-- Toolbar -->
+      <div class="toolbar">
+        <button :title="addButtonTitle" @click="addNote"><i class="material-icons">add</i> Agregar nota</button>
+      </div>
+    </aside>
     <!-- Main pane -->
     <section class="main">
       <!-- Vincular el control de formulario con el modelo content -->
