@@ -17,6 +17,11 @@
       <div class="toolbar">
         <button :title="addButtonTitle" @click="addNote"><i class="material-icons">add</i> Agregar nota</button>
       </div>
+      <!-- Listado de notas añadidas -->
+      <div class="notes">
+        <!-- Repetir este elemento por cada item en el modelo notes (se puede usar of en ligar de in)-->
+        <div class="note" v-for="note in notes">{{note.title}}</div>
+      </div>
     </aside>
     <!-- Main pane -->
     <section class="main">
