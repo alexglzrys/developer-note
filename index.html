@@ -40,15 +40,37 @@
         </div>
         <!-- Vincular el control de formulario con la propiedad compitada selectedNote, la cual es un objeto que coincide con la nota previamente seleccionada en la vista -->
         <textarea v-model="selectedNote.content"></textarea>
+        <!-- Status bar -->
+        <div class="toolbar status-bar">
+          <span class="date">
+              <span class="label">Fecha de creación</span>
+              <!-- Invocar nuestro filtro de fecha para formater la fecha entrante de forma legible para humanos -->
+              <span class="value">{{ selectedNote.created | date }}</span>
+          </span>
+          <span class="lines">
+            <span class="label">Lineas</span>
+            <span class="value">{{ linesCount }}</span>
+          </span>
+          <span class="words">
+            <span class="label">Palabras</span>
+            <span class="value">{{ wordsCount }}</span>
+          </span>
+          <span class="characters">
+            <span class="label">Caracteres</span>
+            <span class="value">{{ charactersCount }}</span>
+          </span>
+        </div>
       </section>
       <!-- Panel de Previsualización | es importante no escapar el contenido, puesto que necesitamos mostrar el resultado en formato HTML. Se recomienda escapar siempre el contenido del usuario para prevenir ataques de secuencia de comandos XSS. En este caso la lógica de la aplicación nos obliga a llevar la contraria -->
       <aside class="preview" v-html="notePreview"></aside>
     </template>  
   </div>
 
-  <!-- Incluir librerías externas - Vue | Marked (parser y compiler markdown) -->
+  <!-- Incluir librerías externas - Vue | Marked (parser y compiler markdown) | momment (formateo de fecha y hora) -->
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.7.0/marked.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/es.js"></script>
   <!-- Lógica de la aplicación -->
   <script src="./script.js"></script>
 

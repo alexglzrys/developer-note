@@ -1,3 +1,7 @@
+// Registrar un filtro
+// tomará como parámetro una fecha en formato timestamp y la transformará en una fecha con formato legible para humanos (gracias a la libreria moment)
+Vue.filter('date', (time) => moment(time).format('DD/MM/YY, HH:mm'))
+
 new Vue({
   el: '#notebook',
   data() {
@@ -72,6 +76,32 @@ new Vue({
         // si a es favorito, entonces a va primero (-1)
         // si b es favorito, entonces a va despues de b (1) 
         .sort((a, b) => (a.favorite === b.favorite) ? 0 : a.favorite ? -1 : 1)
+    },
+    charactersCount() {
+      if (this.selectedNote) {
+        // Devolver la cantidad de caracteres encontrados en la propiedad content. Como es una cadena extensa, la dividimos en caracteres independientes, lo que genera un arreglo, posteriormetne procedemos a contar la longitud del mismo
+        return this.selectedNote.content.split('').length
+      }
+    },
+    linesCount() {
+      if (this.selectedNote) {
+        // Devolvemos el numero de nuevas lineas (renglones) de caracteres. Para ello dividimos la cadena a partir de la presencia de caractes de salto de linea (\r\n), o en algunos sistemas operativos lo presentan como (\n), o (\r). Esto nos genera un nuevo arreglo y procedemos a calcular su longitud (numero de renglones) 
+        // Para ello nos auxiliamos de expresiones regulares
+        return this.selectedNote.content.split(/\r\n|\r|\n/).length
+      }
+    },
+    wordsCount() {
+      if (this.selectedNote) {
+        let s = this.selectedNote.content
+        // Convertir caracteres de salto de linea en espacios en blanco
+        s = s.replace(/\n/g, ' ')
+        // Excluir espacios en blanco que aparecen al inicio y al final de cada linea
+        s = s.replace(/(^\s)|(\s*$)/gi, '')
+        // Convertir 2 o mas espacios seguidos en 1 solo
+        s = s.replace(/\s\s+/gi, ' ')
+        // Dividir la cadena resultante con base en los espacios en blanco para saber cuantas palabras hay. 
+        return s.split(' ').length
+      }
     }
   },
   // Los observadores ejecutan una funcion asociada a una propiedad cuando esta última cambia su valor. Es posible pasar un objeto para establecer opciones de ejecución y monitoreo de profundidad en los datos a observar, sin embargo, la mayoría del tiempo no hace falta especificar opciones adicionales.
