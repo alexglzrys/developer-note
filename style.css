@@ -25,10 +25,13 @@ body {
   background: #f8f8f8;
   width: 20%;
   box-sizing: border-box;
+  padding: 10px;
+  overflow-y: auto;
+  max-height: 100vh;
 }
 
 .note {
-  padding: 16px;
+  padding: 15px 6px;
   cursor: pointer;
 }
 
@@ -94,6 +97,10 @@ input {
 .toolbar {
   padding: 4px;
   box-sizing: border-box;
+ 
+}
+.toolbar.primary {
+  margin: 10px 0 20px;
 }
 
 .status-bar {
@@ -150,4 +157,14 @@ h3 {
 h4 {
   font-size: 1.1em;
   font-weight: normal;
+}
+
+.toolbar-title {
+  font-size: 25px;
+  margin-bottom: 1em;
+  margin-top: 0;
+  text-shadow: 0 0 1px gray;
+}
+.notes { 
+  margin-top: 16px;
 }

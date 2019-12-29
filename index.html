@@ -15,6 +15,7 @@
     <aside class="side-bar">
       <!-- Toolbar -->
       <div class="toolbar">
+        <h1 class="toolbar-title">Developer Note</h1>
         <button :title="addButtonTitle" @click="addNote"><i class="material-icons">add</i> Agregar nota</button>
       </div>
       <!-- Listado de notas añadidas -->
@@ -31,10 +32,10 @@
     <!-- No tiene sentido mostrar el editor y el previsualizador si no se ha seleccionado una nota para su visualización -->
     <template v-if="selectedNote">
       <section class="main">
-        <div class="toolbar">
+        <div class="toolbar primary">
           <!-- Vincular el control de formulario al modelo para cambiar el titulo de la nota seleccionada -->
           <input type="text" v-model="selectedNote.title" placeholder="Titulo de la Nota">
-          <button @click="favoriteNote" title="Nota favorita"><i class="material-icons">{{ selectedNote.favorite ? 'star' : 'star_border' }}</i></button>
+          <button @click="favoriteNote" title="Marcar como nota favorita"><i class="material-icons">{{ selectedNote.favorite ? 'star' : 'star_border' }}</i></button>
           <!-- Eliminar nota -->
           <button title="Remover nota" @click="removeNote"><i class="material-icons">delete</i></button>
         </div>
@@ -43,20 +44,20 @@
         <!-- Status bar -->
         <div class="toolbar status-bar">
           <span class="date">
-              <span class="label">Fecha de creación</span>
+              <span class="label">Fecha:</span>
               <!-- Invocar nuestro filtro de fecha para formater la fecha entrante de forma legible para humanos -->
               <span class="value">{{ selectedNote.created | date }}</span>
           </span>
           <span class="lines">
-            <span class="label">Lineas</span>
+            <span class="label">Lineas:</span>
             <span class="value">{{ linesCount }}</span>
           </span>
           <span class="words">
-            <span class="label">Palabras</span>
+            <span class="label">Palabras:</span>
             <span class="value">{{ wordsCount }}</span>
           </span>
           <span class="characters">
-            <span class="label">Caracteres</span>
+            <span class="label">Caracteres:</span>
             <span class="value">{{ charactersCount }}</span>
           </span>
         </div>
